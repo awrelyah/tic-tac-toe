@@ -1,0 +1,74 @@
+
+:root{
+    --color--one: #e9d3de;
+    --color--one--light: #ffffff;
+    --color--one--dark:  rgb(107, 99, 99);
+    --color-two: rgb(231, 231, 231);
+}
+body{
+    margin:0;
+}
+
+.page-container{
+    background-color: var(--color-two);
+    height: 100vh;
+    display:flex;
+    flex-direction: row;
+}
+
+.title{
+    color: var(--color--one--dark);
+    font-size: 53px;
+    margin-top: 20px;
+
+    font-weight: 800;
+}
+
+.game{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.player-left,
+.player-right{
+    width: 25vw;
+    color: var(--color--one--light);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 34px;
+    color: var(--color--one--dark);
+}
+
+.gameboard{
+	width: 500px;
+	height: 500px;
+    margin-top: 40px;
+    background-color: var(--color--one);
+    color: var(--color--one--dark);
+    border: 6px solid var(--color--one);
+    border-radius: 10px;
+	display: grid;
+	grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+}
+
+.tile{
+    border: 6px solid var(--color--one--light);
+    border-radius: 2px;
+    font-family: Helvetica;
+    font-weight: bold;
+    font-size: 4em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tile:hover{
+    background-color: white;
+    box-shadow: 10px 1px 20px 10px var(--color--one);
+}
