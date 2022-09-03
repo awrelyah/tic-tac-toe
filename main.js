@@ -1,13 +1,17 @@
 let tiles = Array.from(document.querySelectorAll('.tile'));
 let activePlayer = document.querySelector('.player-name');
+let restartBtn = document.getElementById('restart');
 
+restartBtn.addEventListener('click', restart);
 
 tiles.forEach((tile) => {
     tile.addEventListener('click', (e) =>{
         let targetTile = e.target;
-        playRound(targetTile);
+        if(e.target.textContent === ''){
+            playRound(targetTile)
+        }
         
-    }, {once: true});
+    });
 })
 
 const playerFactory = (name, icon, score) => {
@@ -34,6 +38,7 @@ const winningConditions = [
 
 function playRound(tile){
     tile.textContent = currentIcon;
+    currentIcon === playerOne.icon ? (activePlayer.textContent = playerTwo.icon) : (activePlayer.textContent = playerOne.icon);
     //check for win 
     //check for draw
     tileIndex = tile.getAttribute('data-value');
@@ -48,15 +53,23 @@ function changePlayer(){
 }
 
 function addToArray(){
-    if(currentIcon === playerOne.icon){
-        gameArray[0].push(tileIndex);
-    } else {
-        gameArray[1].push(tileIndex);
-    }
-
+    currentIcon === playerOne.icon ? (gameArray[0].push(tileIndex)) : (gameArray[1].push(tileIndex));
     //console.log(gameArray);
 }
 
+function checkWin(){
+
+}
+
+function restart(){
+    gameArray = [[], []];
+    currentIcon = playerOne.icon;
+    activePlayer.textContent = 'X';
+
+    tiles.forEach((tile)=> {
+        tile.textContent = '';
+    })
+}
 
 
 
