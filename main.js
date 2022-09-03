@@ -24,6 +24,8 @@ let playerTwo = playerFactory('two', 'O', 0);
 
 let gameboard = [];
 let currentIcon = playerOne.icon;
+let winner = '';
+let moves = 0;
 
 const winningCombs = [
     [0, 1, 2],
@@ -38,12 +40,13 @@ const winningCombs = [
 
 
 function playRound(tile){
+    moves++;
     tile.textContent = currentIcon;
     currentIcon === playerOne.icon ? (activePlayer.textContent = playerTwo.icon) : (activePlayer.textContent = playerOne.icon);
-    //check for draw
     tileIndex = tile.getAttribute('data-value');
     addToArray(tileIndex);
     checkWin(gameboard);
+    checkDraw();
     changePlayer();
 }
 
@@ -65,6 +68,8 @@ function checkWin(gameboard){
         if (gameboard[a] && gameboard[a] === gameboard[b] && gameboard[a] === gameboard[c]) {
             alert(`Player ${gameboard[a]} won! Click restart to play again.`);
 
+            gameboard[a] === 'X' ? (winner = playerOne) : (winner = playerTwo);
+        
             //cant click on tiles after someone won
             tiles.forEach((tile) => {
                 tile.removeEventListener('click', handleClick);
@@ -72,6 +77,12 @@ function checkWin(gameboard){
     }
 
 } }
+
+function checkDraw(){
+    if (moves === 9){
+        alert("It's a tie! Click restart to play again.")
+    }
+}
 
 
 //restart the game
@@ -82,4 +93,9 @@ function restart(){
     tiles.forEach((tile)=> {
         tile.textContent = '';
     })
+
+    tiles.forEach((tile) => {
+        tile.addEventListener('click', handleClick);
+    })
+
 }
