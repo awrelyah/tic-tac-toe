@@ -5,14 +5,15 @@ let restartBtn = document.getElementById('restart');
 restartBtn.addEventListener('click', restart);
 
 tiles.forEach((tile) => {
-    tile.addEventListener('click', (e) =>{
-        let targetTile = e.target;
-        if(e.target.textContent === ''){
-            playRound(targetTile)
-        }
-        
-    });
-})
+    tile.addEventListener('click', handleClick);
+});
+
+function handleClick(e){
+    let targetTile = e.target;
+    if(e.target.textContent === ''){
+        playRound(targetTile)
+    }
+}
 
 const playerFactory = (name, icon, score) => {
     return {name, icon, score};
@@ -21,10 +22,10 @@ const playerFactory = (name, icon, score) => {
 let playerOne = playerFactory('one','X', 0);
 let playerTwo = playerFactory('two', 'O', 0);
 
-let gameArray = [[], []];
+let gameboard = [];
 let currentIcon = playerOne.icon;
 
-const winningConditions = [
+const winningCombs = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -39,12 +40,11 @@ const winningConditions = [
 function playRound(tile){
     tile.textContent = currentIcon;
     currentIcon === playerOne.icon ? (activePlayer.textContent = playerTwo.icon) : (activePlayer.textContent = playerOne.icon);
-    //check for win 
     //check for draw
     tileIndex = tile.getAttribute('data-value');
     addToArray(tileIndex);
+    checkWin(gameboard);
     changePlayer();
-   //console.log(gameArray);
 }
 
 function changePlayer(){
@@ -53,34 +53,33 @@ function changePlayer(){
 }
 
 function addToArray(){
-    currentIcon === playerOne.icon ? (gameArray[0].push(tileIndex)) : (gameArray[1].push(tileIndex));
-    //console.log(gameArray);
+    gameboard[tileIndex] = currentIcon;
 }
 
-function checkWin(){
+function checkWin(gameboard){
+    //logic from jsfiddle, loops through winningcombs array
+    for(let i=0; i < winningCombs.length; i++){
+        const [a, b, c] = winningCombs[i]; // new array with the same values as each winning combo
 
-}
+        //check if the winningcomb[i] array items are all same (either x or o)
+        if (gameboard[a] && gameboard[a] === gameboard[b] && gameboard[a] === gameboard[c]) {
+            alert(`Player ${gameboard[a]} won! Click restart to play again.`);
 
+            //cant click on tiles after someone won
+            tiles.forEach((tile) => {
+                tile.removeEventListener('click', handleClick);
+            })
+    }
+
+} }
+
+
+//restart the game
 function restart(){
-    gameArray = [[], []];
+    gameboard = [];
     currentIcon = playerOne.icon;
     activePlayer.textContent = 'X';
-
     tiles.forEach((tile)=> {
         tile.textContent = '';
     })
 }
-
-
-
-/*
-current player on player one -> 
-player one (x) vajutab tile peale 
-tile peale ilmub x ->
-x läheb arraysse selle tile indexiga mille peal ta on (player x on arrays veel oma array?)
-player 2 kord ehk current player vahetub (iga kord kui klikk on tehtud)
-tema vajutab tile tuleb 0
-läheb arraysse see index, kus tile peal ta on
-player x kord
-
-*/
