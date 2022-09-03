@@ -1,16 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Indie+Flower&family=Prompt:wght@300;400;700&family=Rajdhani&family=Roboto+Mono:wght@100;200;400&family=Roboto:wght@100;400;900&display=swap');
 
 :root{
-    --color--one: #e9d3de;
-    --color--one--light: #ffffff;
-    --color--one--dark:  rgb(107, 99, 99);
-    --color-two: rgb(231, 231, 231);
+    --color--one: #fae5df;
+    --color-one-modified: #fbf2ef;
+    --color--one--light: #f5cac2;
+    --color--one--dark:  #303179;
+    --color-two: #ed7966;
+
 }
 body{
     margin:0;
+    font-family: 'Rajdhani';
 }
 
 .page-container{
-    background-color: var(--color-two);
     height: 100vh;
     display:flex;
     flex-direction: row;
@@ -18,10 +21,11 @@ body{
 
 .title{
     color: var(--color--one--dark);
-    font-size: 53px;
+    font-size: 48px;
     margin-top: 20px;
-
+    font-family: 'Prompt', sans-serif;
     font-weight: 800;
+    letter-spacing: 0.2em;
 }
 
 .game{
@@ -32,8 +36,8 @@ body{
 
 }
 
-.player-left,
-.player-right{
+.player-one,
+.player-two{
     width: 25vw;
     color: var(--color--one--light);
     height: 100%;
@@ -48,27 +52,68 @@ body{
 .gameboard{
 	width: 500px;
 	height: 500px;
-    margin-top: 40px;
+    margin-top: 10px;
     background-color: var(--color--one);
     color: var(--color--one--dark);
-    border: 6px solid var(--color--one);
     border-radius: 10px;
 	display: grid;
 	grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+
 }
 
 .tile{
     border: 6px solid var(--color--one--light);
     border-radius: 2px;
-    font-family: Helvetica;
-    font-weight: bold;
+    font-family: 'Indie flower';
+    font-weight: bolder;
     font-size: 4em;
     display: flex;
     justify-content: center;
     align-items: center;
+
+}
+
+.turns{
+    color: var(--color-two);
+    margin-top: 30px;
+    font-weight: 500;
+    font-size: 20px;
+
+}
+
+.player-name{
+    text-shadow: 2px 0 var(--color-two),1px 1px 4px var(--color-two);
+    z-index: 10;
+    font-size: 25px;
+
+}
+
+#restart{
+    margin-top: 20px;
+    border: none;
+    background-color: rgb(203, 203, 203);
+    border-radius: 20px;
+    padding: 10px 25px;
+    color: var(--color--one--dark);
+    letter-spacing: 0.2em;
+    font-weight: 600;
+}
+
+#restart:hover{
+    background-color: rgb(232, 231, 231);
+    padding: 13px 28px;
+    font-weight: 900;
+}
+
+#restart:active{
+    background-color: white;
 }
 
 .tile:hover{
+    background-color: var(--color-one-modified);
+    box-shadow: 1px 1px 10px 10px var(--color--one--light);
+}
+
+.tile:active{
     background-color: white;
-    box-shadow: 10px 1px 20px 10px var(--color--one);
 }
